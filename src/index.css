@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .button {
+    @apply bg-white text-black px-4 py-2 rounded-full font-semibold ring-2 shadow-md ring-red-700 hover:bg-red-700 hover:ring-0 hover:text-white hover:shadow-xl active:scale-90 transition duration-150;
+  }
+
+  .couter-button {
+    @apply flex-none flex items-center justify-center w-9 h-9 rounded-full text-white bg-red-700 font-bold text-xl hover:bg-red-400;
+  }
+}
