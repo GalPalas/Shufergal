@@ -5,12 +5,30 @@ import { Link } from "react-router-dom";
 import { Product } from "types";
 import { HeartIcon } from "@heroicons/react/outline";
 import { formatCurrency } from "utilities/formatCurrency";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, cartState } from "store/slices/cartSlice";
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const cart = useSelector(cartState);
 
   const product: Product = data.products.find((p) => p._id === id)!;
   if (!product) return <div>Product Not Found</div>;
+
+  const addToCartHandler = () => {
+    const existItem: any = cart.cartItems.find(
+      (item) => item._id === product._id
+    );
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+
+    if (product.numberInStock! < quantity) {
+      alert("Sorry, Product is out of stock");
+      return;
+    }
+
+    dispatch(addToCart({ ...product, quantity }));
+  };
 
   return (
     <Layout title="Product Details">
@@ -44,6 +62,7 @@ const ProductDetails = () => {
             <button
               type="button"
               className="button w-full mt-2 bg-red-700 text-white"
+              onClick={addToCartHandler}
             >
               Add to cart
             </button>

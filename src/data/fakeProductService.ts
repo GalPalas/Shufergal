@@ -23,7 +23,7 @@ const data: Data = {
         "https://i5.walmartimages.com/asr/4b15d1c6-03e7-489b-96cb-7d4b1edeb927.042464e5bc52fa0421f255d04ec525a4.jpeg",
       category: "Organic Fruit",
       description: "Marketside Organic Bananas, Bunch, 2 lb",
-      numberInStock: 100,
+      numberInStock: 15,
     },
     {
       _id: "2",
