@@ -18,7 +18,7 @@ const Navbar = () => {
       <div></div>
       <div className="flex items-center space-x-4 text-gray-500 justify-end">
         <div>
-          <Link to="/" className="flex items-center justify-center gap-2">
+          <Link to="/cart" className="flex items-center justify-center gap-2">
             Cart
             {count > 0 && (
               <div className="flex-none flex items-center justify-center w-5 h-5 rounded-full text-white bg-red-700 font-bold text-sm">

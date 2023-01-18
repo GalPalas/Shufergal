@@ -1,24 +1,25 @@
 import data from "data/fakeProductService";
 import Layout from "./common/Layout";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Product } from "types";
 import { HeartIcon } from "@heroicons/react/outline";
 import { formatCurrency } from "utilities/formatCurrency";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, cartState } from "store/slices/cartSlice";
+import { addToCart, CartState, cartState } from "store/slices/cartSlice";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const cart = useSelector(cartState);
+  const navigate = useNavigate();
+  const cart: CartState = useSelector(cartState);
 
   const product: Product = data.products.find((p) => p._id === id)!;
   if (!product) return <div>Product Not Found</div>;
 
   const addToCartHandler = () => {
     const existItem: any = cart.cartItems.find(
-      (item) => item._id === product._id
+      (item: Product) => item._id === product._id
     );
     const quantity = existItem ? existItem.quantity + 1 : 1;
 
@@ -28,6 +29,7 @@ const ProductDetails = () => {
     }
 
     dispatch(addToCart({ ...product, quantity }));
+    navigate("/cart");
   };
 
   return (
@@ -41,7 +43,7 @@ const ProductDetails = () => {
         <div className="md:col-span-2">
           <img src={product.image} alt={product.name} />
         </div>
-        <div className="hidden relative mb-5 rounded-lg border border-gray-200  shadow-md p-5 md:block">
+        <div className="hidden relative mb-5 rounded-lg border border-gray-200 shadow-md p-5 md:block">
           <div className="absolute top-0 right-5 p-2">
             <HeartIcon className="w-7 h-7 cursor-pointer"></HeartIcon>
           </div>

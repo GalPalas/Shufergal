@@ -25,6 +25,12 @@ export const counterSlice = createSlice({
         cart.cartItems.push(newitem);
       }
     },
+    removeItemFromCart: (cart: CartState, action) => {
+      const removeItem = cart.cartItems.filter(
+        (item) => item._id !== action.payload._id
+      );
+      cart.cartItems = removeItem;
+    },
   },
 });
 
@@ -37,6 +43,6 @@ export const cartValue = (state: RootState) =>
 
 export const cartState = (state: RootState) => state.entities.cart;
 
-export const { addToCart } = counterSlice.actions;
+export const { addToCart, removeItemFromCart } = counterSlice.actions;
 
 export default counterSlice.reducer;
