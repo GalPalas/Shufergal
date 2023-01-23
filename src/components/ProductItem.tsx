@@ -3,9 +3,71 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HeartIcon } from "@heroicons/react/outline";
 import { formatCurrency } from "utilities/formatCurrency";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCart,
+  cartState,
+  CartState,
+  decrementQuantity,
+  incrementQuantity,
+  removeItemFromCart,
+} from "store/slices/cartSlice";
 
-const ProductItem = ({ _id, name, image, price }: Product) => {
-  const [quantity] = useState(0);
+type ProductProps = {
+  details: Product;
+  key: string;
+};
+
+const ProductItem = ({ details }: ProductProps) => {
+  const { _id, image, name, price } = details;
+  const [quantity, setQuantity] = useState(0);
+  const dispatch = useDispatch();
+  const cart: CartState = useSelector(cartState);
+
+  const addToCartHandler = () => {
+    const existItem: Product = cart.cartItems.find(
+      (item: Product) => item._id === details._id
+    )!;
+    const quantity = existItem ? existItem.quantity! + 1 : 1;
+
+    if (details.numberInStock! < quantity) {
+      alert("Sorry, This product is out of stock");
+      return;
+    }
+
+    setQuantity(quantity);
+    dispatch(addToCart({ ...details, quantity }));
+  };
+
+  const HandleIncrement = (_id: string) => {
+    const existItem: Product = cart.cartItems.find(
+      (item: Product) => item._id === details._id
+    )!;
+    const quantity = existItem ? existItem.quantity! + 1 : 1;
+
+    if (details.numberInStock! < quantity) {
+      alert("Sorry, This product is out of stock");
+      return;
+    }
+
+    setQuantity(quantity);
+    dispatch(incrementQuantity(_id));
+  };
+
+  const HandleDecrement = (_id: string) => {
+    const existItem: Product = cart.cartItems.find(
+      (item: Product) => item._id === details._id
+    )!;
+    const quantity = existItem ? existItem.quantity! - 1 : 0;
+    setQuantity(quantity);
+    dispatch(decrementQuantity(_id));
+  };
+
+  const resetProduct = (item: Product) => {
+    setQuantity(0);
+    dispatch(removeItemFromCart(item));
+  };
+
   return (
     <div className="relative cursor-pointer p-3">
       <Link to={`/product/${_id}`}>
@@ -20,13 +82,17 @@ const ProductItem = ({ _id, name, image, price }: Product) => {
       </div>
       <div className="mt-auto flex justify-center">
         {quantity === 0 ? (
-          <button type="button" className="button">
+          <button type="button" className="button" onClick={addToCartHandler}>
             Add to cart
           </button>
         ) : (
           <div className="flex flex-col justify-center items-center space-y-2">
             <div className="flex space-x-2 items-center">
-              <button type="button" className="couter-button">
+              <button
+                type="button"
+                className="couter-button"
+                onClick={() => HandleDecrement(_id)}
+              >
                 -
               </button>
               <div>
@@ -34,13 +100,18 @@ const ProductItem = ({ _id, name, image, price }: Product) => {
                 Cart
               </div>
 
-              <button type="button" className="couter-button">
+              <button
+                type="button"
+                className="couter-button"
+                onClick={() => HandleIncrement(_id)}
+              >
                 +
               </button>
             </div>
             <button
               type="button"
               className="px-4 py-2 bg-black text-white font-bold rounded-full hover:bg-gray-600"
+              onClick={() => resetProduct(details)}
             >
               Remove
             </button>

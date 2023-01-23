@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import {
   CartState,
   cartState,
+  decrementQuantity,
+  incrementQuantity,
   removeItemFromCart,
 } from "store/slices/cartSlice";
 import { formatCurrency } from "utilities/formatCurrency";
@@ -16,6 +18,18 @@ const Cart = () => {
 
   const removeItemHandler = (item: Product) => {
     dispatch(removeItemFromCart(item));
+  };
+
+  const HandleIncrement = (item: Product) => {
+    if (item.numberInStock! <= item.quantity!) {
+      alert("Sorry, This product is out of stock");
+      return;
+    }
+    dispatch(incrementQuantity(item._id));
+  };
+
+  const HandleDecrement = (item: Product) => {
+    dispatch(decrementQuantity(item._id));
   };
 
   return (
@@ -56,7 +70,25 @@ const Cart = () => {
                         &nbsp; {item.name}
                       </Link>
                     </td>
-                    <td className="p-5 text-right">{item.quantity}</td>
+                    <td className="p-5 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          type="button"
+                          className="text-red-700 font-bold text-2xl"
+                          onClick={() => HandleDecrement(item)}
+                        >
+                          -
+                        </button>
+                        {item.quantity}
+                        <button
+                          type="button"
+                          className="text-red-700 font-bold text-2xl"
+                          onClick={() => HandleIncrement(item)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </td>
                     <td className="p-5 text-right">
                       {formatCurrency(item.price!)}
                     </td>
@@ -82,10 +114,12 @@ const Cart = () => {
                   0
                 )}
                 ) : $
-                {cart.cartItems.reduce(
-                  (acc, item: Product) => acc + item.quantity! * item.price!,
-                  0
-                )}
+                {cart.cartItems
+                  .reduce(
+                    (acc, item: Product) => acc + item.quantity! * item.price!,
+                    0
+                  )
+                  .toFixed(2)}
               </div>
             </div>
             <div>
