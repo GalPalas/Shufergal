@@ -31,18 +31,35 @@ export const counterSlice = createSlice({
       );
       cart.cartItems = removeItem;
     },
+    incrementQuantity: (cart, action) => {
+      const item = cart.cartItems.find((item) => item._id === action.payload)!;
+      item.quantity!++;
+    },
+    decrementQuantity: (cart, action) => {
+      const item = cart.cartItems.find((item) => item._id === action.payload)!;
+      if (item.quantity! < 1) {
+        item.quantity = 0;
+      } else {
+        item.quantity!--;
+      }
+    },
   },
 });
+
+export const cartState = (state: RootState) => state.entities.cart;
 
 // Returns the amount of items in the cart
 export const cartValue = (state: RootState) =>
   state.entities.cart.cartItems.reduce(
-    (acc: number, item: any) => acc + item.quantity,
+    (acc: number, item: Product) => acc + item.quantity!,
     0
   );
 
-export const cartState = (state: RootState) => state.entities.cart;
-
-export const { addToCart, removeItemFromCart } = counterSlice.actions;
+export const {
+  addToCart,
+  removeItemFromCart,
+  incrementQuantity,
+  decrementQuantity,
+} = counterSlice.actions;
 
 export default counterSlice.reducer;

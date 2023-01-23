@@ -4,17 +4,32 @@ import { Link } from "react-router-dom";
 import {
   CartState,
   cartState,
+  decrementQuantity,
+  incrementQuantity,
   removeItemFromCart,
 } from "store/slices/cartSlice";
 import { formatCurrency } from "utilities/formatCurrency";
 import { XCircleIcon } from "@heroicons/react/outline";
+import { Product } from "types";
 
 const Cart = () => {
   const cart: CartState = useSelector(cartState);
   const dispatch = useDispatch();
 
-  const removeItemHandler = (item: any) => {
+  const removeItemHandler = (item: Product) => {
     dispatch(removeItemFromCart(item));
+  };
+
+  const HandleIncrement = (item: Product) => {
+    if (item.numberInStock! <= item.quantity!) {
+      alert("Sorry, This product is out of stock");
+      return;
+    }
+    dispatch(incrementQuantity(item._id));
+  };
+
+  const HandleDecrement = (item: Product) => {
+    dispatch(decrementQuantity(item._id));
   };
 
   return (
@@ -40,7 +55,7 @@ const Cart = () => {
                 </tr>
               </thead>
               <tbody>
-                {cart.cartItems.map((item: any) => (
+                {cart.cartItems.map((item: Product) => (
                   <tr key={item._id} className="border-b">
                     <td>
                       <Link
@@ -55,9 +70,27 @@ const Cart = () => {
                         &nbsp; {item.name}
                       </Link>
                     </td>
-                    <td className="p-5 text-right">{item.quantity}</td>
                     <td className="p-5 text-right">
-                      {formatCurrency(item.price)}
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          type="button"
+                          className="text-red-700 font-bold text-2xl"
+                          onClick={() => HandleDecrement(item)}
+                        >
+                          -
+                        </button>
+                        {item.quantity}
+                        <button
+                          type="button"
+                          className="text-red-700 font-bold text-2xl"
+                          onClick={() => HandleIncrement(item)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </td>
+                    <td className="p-5 text-right">
+                      {formatCurrency(item.price!)}
                     </td>
                     <td className="p-5 text-center">
                       <button
@@ -77,14 +110,16 @@ const Cart = () => {
               <div className="pb-3 text-xl">
                 Subtotal (
                 {cart.cartItems.reduce(
-                  (acc, item: any) => acc + item.quantity,
+                  (acc, item: Product) => acc + item.quantity!,
                   0
                 )}
                 ) : $
-                {cart.cartItems.reduce(
-                  (acc, item: any) => acc + item.quantity * item.price,
-                  0
-                )}
+                {cart.cartItems
+                  .reduce(
+                    (acc, item: Product) => acc + item.quantity! * item.price!,
+                    0
+                  )
+                  .toFixed(2)}
               </div>
             </div>
             <div>

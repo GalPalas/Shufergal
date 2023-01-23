@@ -18,10 +18,10 @@ const ProductDetails = () => {
   if (!product) return <div>Product Not Found</div>;
 
   const addToCartHandler = () => {
-    const existItem: any = cart.cartItems.find(
+    const existItem: Product = cart.cartItems.find(
       (item: Product) => item._id === product._id
-    );
-    const quantity = existItem ? existItem.quantity + 1 : 1;
+    )!;
+    const quantity = existItem ? existItem.quantity! + 1 : 1;
 
     if (product.numberInStock! < quantity) {
       alert("Sorry, Product is out of stock");
