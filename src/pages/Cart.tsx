@@ -8,12 +8,13 @@ import {
 } from "store/slices/cartSlice";
 import { formatCurrency } from "utilities/formatCurrency";
 import { XCircleIcon } from "@heroicons/react/outline";
+import { Product } from "types";
 
 const Cart = () => {
   const cart: CartState = useSelector(cartState);
   const dispatch = useDispatch();
 
-  const removeItemHandler = (item: any) => {
+  const removeItemHandler = (item: Product) => {
     dispatch(removeItemFromCart(item));
   };
 
@@ -40,7 +41,7 @@ const Cart = () => {
                 </tr>
               </thead>
               <tbody>
-                {cart.cartItems.map((item: any) => (
+                {cart.cartItems.map((item: Product) => (
                   <tr key={item._id} className="border-b">
                     <td>
                       <Link
@@ -57,7 +58,7 @@ const Cart = () => {
                     </td>
                     <td className="p-5 text-right">{item.quantity}</td>
                     <td className="p-5 text-right">
-                      {formatCurrency(item.price)}
+                      {formatCurrency(item.price!)}
                     </td>
                     <td className="p-5 text-center">
                       <button
@@ -77,12 +78,12 @@ const Cart = () => {
               <div className="pb-3 text-xl">
                 Subtotal (
                 {cart.cartItems.reduce(
-                  (acc, item: any) => acc + item.quantity,
+                  (acc, item: Product) => acc + item.quantity!,
                   0
                 )}
                 ) : $
                 {cart.cartItems.reduce(
-                  (acc, item: any) => acc + item.quantity * item.price,
+                  (acc, item: Product) => acc + item.quantity! * item.price!,
                   0
                 )}
               </div>
