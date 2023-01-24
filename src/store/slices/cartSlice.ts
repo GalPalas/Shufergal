@@ -7,7 +7,9 @@ export interface CartState {
 }
 
 const initialState: CartState = {
-  cartItems: [],
+  cartItems: localStorage.getItem("cart")
+    ? JSON.parse(localStorage.getItem("cart")!)
+    : [],
 };
 
 export const counterSlice = createSlice({
@@ -24,16 +26,19 @@ export const counterSlice = createSlice({
       } else {
         cart.cartItems.push(newitem);
       }
+      localStorage.setItem("cart", JSON.stringify(cart.cartItems));
     },
     removeItemFromCart: (cart: CartState, action) => {
       const removeItem = cart.cartItems.filter(
         (item) => item._id !== action.payload._id
       );
       cart.cartItems = removeItem;
+      localStorage.setItem("cart", JSON.stringify(cart.cartItems));
     },
     incrementQuantity: (cart, action) => {
       const item = cart.cartItems.find((item) => item._id === action.payload)!;
       item.quantity!++;
+      localStorage.setItem("cart", JSON.stringify(cart.cartItems));
     },
     decrementQuantity: (cart, action) => {
       const item = cart.cartItems.find((item) => item._id === action.payload)!;
@@ -42,6 +47,7 @@ export const counterSlice = createSlice({
       } else {
         item.quantity!--;
       }
+      localStorage.setItem("cart", JSON.stringify(cart.cartItems));
     },
   },
 });
