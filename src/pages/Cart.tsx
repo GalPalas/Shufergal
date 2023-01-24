@@ -1,6 +1,6 @@
 import Layout from "components/common/Layout";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   CartState,
   cartState,
@@ -15,6 +15,7 @@ import { Product } from "types";
 const Cart = () => {
   const cart: CartState = useSelector(cartState);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const removeItemHandler = (item: Product) => {
     dispatch(removeItemFromCart(item));
@@ -126,6 +127,7 @@ const Cart = () => {
               <button
                 type="button"
                 className="button w-full bg-red-700 text-white"
+                onClick={() => navigate("/login")}
               >
                 Check Out
               </button>
