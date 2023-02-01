@@ -1,6 +1,11 @@
 import Layout from "components/common/Layout";
-import { Link } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import { login } from "services/authService";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { getCurrentUser } from "services/authService";
+import { addUser } from "store/slices/userSlice";
+import { useDispatch } from "react-redux";
 
 type Inputs = {
   email: string;
@@ -8,12 +13,37 @@ type Inputs = {
 };
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
+  const fetchUser = async () => {
+    const token = localStorage.getItem("x-auth-token")!;
+
+    if (!token) return;
+    const currentUser: any = jwt_decode(token);
+
+    const { data } = await getCurrentUser(currentUser._id);
+    console.log("user", data);
+    dispatch(addUser({ data }));
+  };
+
+  const navigate = useNavigate();
+  const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
+    try {
+      const { data: token } = await login(email, password);
+      localStorage.setItem("x-auth-token", JSON.stringify(token));
+      fetchUser();
+      navigate("/");
+    } catch (ex: any) {
+      if (ex.respone && ex.response.status === 400) {
+      }
+    }
+  };
 
   return (
     <Layout title="Login">
@@ -47,7 +77,7 @@ const Login = () => {
             type="password"
             {...register("password", {
               required: "Please enter password",
-              minLength: { value: 6, message: "password is more than 5 chars" },
+              minLength: { value: 5, message: "password is more than 5 chars" },
             })}
             className="w-full rounded border p-2  outline-none ring-indigo-300  focus:ring"
             id="password"

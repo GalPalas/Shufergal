@@ -1,9 +1,14 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { cartValue } from "store/slices/cartSlice";
+import { useEffect, useState } from "react";
+import jwt_decode from "jwt-decode";
+import { getCurrentUser } from "services/authService";
+import { selectUserName } from "store/slices/userSlice";
 
 const Navbar = () => {
   const count: number = useSelector(cartValue);
+  const userName: string = useSelector(selectUserName)!;
 
   return (
     <nav className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10">
@@ -28,7 +33,11 @@ const Navbar = () => {
           </Link>
         </div>
         <div>
-          <Link to="/login">Login</Link>
+          {userName ? (
+            <Link to="/login">{userName}</Link>
+          ) : (
+            <Link to="/login">Login</Link>
+          )}
         </div>
       </div>
     </nav>
