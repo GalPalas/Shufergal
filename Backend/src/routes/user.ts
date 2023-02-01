@@ -1,14 +1,26 @@
-import express from "express";
 import bycrpt from "bcrypt";
 import _ from "lodash";
+import auth from "../middleware/auth";
 import { User, validateUser } from "../models/user";
-import { IUser } from "../types/user";
+import express, { Application, Request, Response, NextFunction } from "express";
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   const users = await User.find();
   res.send(users);
+});
+
+router.get("/:id", async (req: any, res: Response) => {
+  console.log(req.params.id);
+
+  const user = await User.findById(req.params.id).select("-password");
+  res.send(user);
+});
+
+router.get("/me", auth, async (req: any, res: Response) => {
+  const user = await User.findById(req.user._id).select("-password");
+  res.send(user);
 });
 
 router.post("/", async (req, res) => {
