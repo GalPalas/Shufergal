@@ -1,7 +1,7 @@
 import { Product } from "types";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { HeartIcon } from "@heroicons/react/outline";
+import { Like } from "components/common/Like";
 import { formatCurrency } from "utilities/formatCurrency";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,10 +16,11 @@ import {
 type ProductProps = {
   details: Product;
   key: string;
+  handleLike: () => void;
 };
 
-const ProductItem = ({ details }: ProductProps) => {
-  const { _id, image, name, price } = details;
+const ProductItem = ({ details, handleLike }: ProductProps) => {
+  const { _id, image, name, price, liked } = details;
   const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
   const cart: CartState = useSelector(cartState);
@@ -74,7 +75,7 @@ const ProductItem = ({ details }: ProductProps) => {
         <img src={image} alt={name} />
       </Link>
       <div className="absolute top-0 right-0 p-1">
-        <HeartIcon className="w-7 h-7 cursor-pointer"></HeartIcon>
+        <Like liked={liked!} onLikeToggle={handleLike} />
       </div>
       <div className="flex flex-col p-2">
         <p className="text-lg font-bold">{formatCurrency(price!)}</p>

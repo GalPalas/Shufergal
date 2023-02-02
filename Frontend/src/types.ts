@@ -19,4 +19,5 @@ export type Product = {
   category?: string;
   description?: string;
   numberInStock?: number;
+  liked?: boolean;
 };
