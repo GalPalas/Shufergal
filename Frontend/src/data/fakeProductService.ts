@@ -11,6 +11,7 @@ type Product = {
   category?: string;
   description?: string;
   numberInStock?: number;
+  liked?: boolean;
 };
 
 const data: Data = {
@@ -24,6 +25,7 @@ const data: Data = {
       category: "Organic Fruit",
       description: "Marketside Organic Bananas, Bunch, 2 lb",
       numberInStock: 15,
+      liked: true,
     },
     {
       _id: "2",

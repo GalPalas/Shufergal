@@ -1,9 +1,6 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { cartValue } from "store/slices/cartSlice";
-import { useEffect, useState } from "react";
-import jwt_decode from "jwt-decode";
-import { getCurrentUser } from "services/authService";
 import { selectUserName } from "store/slices/userSlice";
 
 const Navbar = () => {

@@ -1,10 +1,9 @@
 import data from "data/fakeProductService";
-import Layout from "./common/Layout";
+import Layout from "components/common/Layout";
+import { Product } from "types";
+import { formatCurrency } from "utilities/formatCurrency";
 import { useParams } from "react-router";
 import { Link, useNavigate } from "react-router-dom";
-import { Product } from "types";
-import { HeartIcon } from "@heroicons/react/outline";
-import { formatCurrency } from "utilities/formatCurrency";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, CartState, cartState } from "store/slices/cartSlice";
 
@@ -44,9 +43,6 @@ const ProductDetails = () => {
           <img src={product.image} alt={product.name} />
         </div>
         <div className="hidden relative mb-5 rounded-lg border border-gray-200 shadow-md p-5 md:block">
-          <div className="absolute top-0 right-5 p-2">
-            <HeartIcon className="w-7 h-7 cursor-pointer"></HeartIcon>
-          </div>
           <div className="absolute top-10 p-3">
             <div className="mt-4 text-xl font-semibold">{product.name}</div>
             <div className="flex flex-col mt-4">
