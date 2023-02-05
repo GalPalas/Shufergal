@@ -57,6 +57,46 @@ const data: Data = {
       description: "Fresh USDA Organic Strawberries, 1 lb.",
       numberInStock: 100,
     },
+    {
+      _id: "5",
+      name: "Fresh & Organic Italian Parsley, Bunch 1 Pack",
+      price: 0.98,
+      image:
+        "https://i5.walmartimages.com/asr/dfd45cbc-0f22-4b7b-8b1e-d54ec50fc97c_1.add07ac355762219273ff743ec2b2efc.jpeg",
+      category: "Organic Fruit",
+      description: "Fresh & Organic Italian Parsley, Bunch 1 Pack",
+      numberInStock: 100,
+    },
+    {
+      _id: "6",
+      name: "Organic Romaine Lettuce Hearts, 3 Pack",
+      price: 3.46,
+      image:
+        "https://i5.walmartimages.com/asr/03492e51-3793-4a1c-b920-96c461cc8a6c.6a64ac56efebaafc00503fd379cfa49b.jpeg",
+      category: "Organic Fruit",
+      description: "Organic Romaine Lettuce Hearts, 3 Pack",
+      numberInStock: 100,
+    },
+    {
+      _id: "7",
+      name: "Fresh & Organic Whole Carrots, 2 lb Bag",
+      price: 1.96,
+      image:
+        "https://i5.walmartimages.com/asr/4ccb4d13-7f9d-43c4-9044-ee855cb00418.a19543f9c2a7152d279db832d6c7f2f9.jpeg",
+      category: "Organic Fruit",
+      description: "Fresh & Organic Whole Carrots, 2 lb Bag",
+      numberInStock: 100,
+    },
+    {
+      _id: "8",
+      name: "Marketside Organic Baby Spinach, 16 Oz",
+      price: 5.13,
+      image:
+        "https://i5.walmartimages.com/asr/03b1e82b-ae79-43b8-a361-325ae87396f1.692883c91785230e2a0595e99fe0172b.jpeg",
+      category: "Organic Fruit",
+      description: "Marketside Organic Baby Spinach, 16 Oz",
+      numberInStock: 100,
+    },
   ],
 };
 
