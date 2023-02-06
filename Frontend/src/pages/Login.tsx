@@ -28,7 +28,7 @@ const Login = () => {
     const currentUser: any = jwt_decode(token);
 
     const { data } = await getCurrentUser(currentUser._id);
-    console.log("user", data);
+
     dispatch(addUser({ data }));
   };
 

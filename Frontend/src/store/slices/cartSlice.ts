@@ -49,6 +49,10 @@ export const counterSlice = createSlice({
       }
       localStorage.setItem("cart", JSON.stringify(cart.cartItems));
     },
+    resetCart: (cart, action) => {
+      cart.cartItems = [];
+      localStorage.removeItem("cart");
+    },
   },
 });
 
@@ -66,6 +70,7 @@ export const {
   removeItemFromCart,
   incrementQuantity,
   decrementQuantity,
+  resetCart,
 } = counterSlice.actions;
 
 export default counterSlice.reducer;
