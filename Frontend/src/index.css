@@ -10,4 +10,8 @@
   .couter-button {
     @apply flex-none flex items-center justify-center w-9 h-9 rounded-full text-white bg-red-700 font-bold text-xl hover:bg-red-400;
   }
+
+  .dropdown-link {
+    @apply flex p-2 hover:bg-gray-200;
+  }
 }

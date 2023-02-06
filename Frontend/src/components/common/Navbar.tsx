@@ -1,11 +1,19 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { cartValue } from "store/slices/cartSlice";
+import { cartValue, resetCart } from "store/slices/cartSlice";
 import { selectUserName } from "store/slices/userSlice";
+import { Menu } from "@headlessui/react";
+import { userLogout } from "store/slices/userSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const count: number = useSelector(cartValue);
   const userName: string = useSelector(selectUserName)!;
+
+  const logoutClickHandler = () => {
+    dispatch(userLogout({}));
+    dispatch(resetCart({}));
+  };
 
   return (
     <nav className="sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10">
@@ -31,7 +39,25 @@ const Navbar = () => {
         </div>
         <div>
           {userName ? (
-            <Link to="/login">{userName}</Link>
+            <Menu as="div" className="relative inline-block">
+              <Menu.Button className="text-red-700">{userName}</Menu.Button>
+              <Menu.Items className="absolute right-0 w-40 origin-top-right bg-white shadow-lg text-black">
+                <Menu.Item>
+                  <Link to="/" className="dropdown-link">
+                    My Orders
+                  </Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <Link
+                    to="/login"
+                    className="dropdown-link"
+                    onClick={logoutClickHandler}
+                  >
+                    Log Out
+                  </Link>
+                </Menu.Item>
+              </Menu.Items>
+            </Menu>
           ) : (
             <Link to="/login">Login</Link>
           )}

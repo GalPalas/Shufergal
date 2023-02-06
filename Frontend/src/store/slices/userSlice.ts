@@ -34,6 +34,10 @@ export const userSlice = createSlice({
     addUser: (user, action) => {
       user.currentUser = action.payload;
     },
+    userLogout: (user, action) => {
+      user.currentUser.data.name = null;
+      localStorage.removeItem("x-auth-token");
+    },
   },
 });
 
@@ -41,6 +45,6 @@ export const userSlice = createSlice({
 export const selectUserName = (state: RootState) =>
   state.entities.user.currentUser.data.name;
 
-export const { addUser } = userSlice.actions;
+export const { addUser, userLogout } = userSlice.actions;
 
 export default userSlice.reducer;
