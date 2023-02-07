@@ -1,4 +1,4 @@
-import data from "data/fakeProductService";
+import { products } from "data/fakeProductService";
 import Layout from "components/common/Layout";
 import { Product } from "types";
 import { formatCurrency } from "utilities/formatCurrency";
@@ -13,7 +13,7 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const cart: CartState = useSelector(cartState);
 
-  const product: Product = data.products.find((p) => p._id === id)!;
+  const product: any = products.find((p: any) => p._id === id)!;
   if (!product) return <div>Product Not Found</div>;
 
   const addToCartHandler = () => {
