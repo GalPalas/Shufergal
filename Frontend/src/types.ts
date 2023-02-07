@@ -16,8 +16,13 @@ export type Product = {
   quantity?: number;
   brand?: string;
   image?: string;
-  category?: string;
+  category?: Category;
   description?: string;
   numberInStock?: number;
   liked?: boolean;
+};
+
+export type Category = {
+  _id?: string;
+  name: string;
 };
