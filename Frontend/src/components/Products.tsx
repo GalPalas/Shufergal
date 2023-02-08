@@ -6,7 +6,16 @@ import { getCategories } from "data/fakeCategoryService";
 import ProductItem from "components/ProductItem";
 import Pagination from "components/common/Pagination";
 import ListGroup from "components/common/ListGroup";
-import ProductsGridTitle from "./ProductsGridTitle";
+import ProductsGridTitle from "components/ProductsGridTitle";
+import {
+  StoreIconOutline,
+  PriceIconOutline,
+  BrandIconOutline,
+  SpeedIconOutline,
+  MoreFiltersIconOutline,
+} from "assets/icons";
+import ListBox from "./common/ListBox";
+// import ProductsGrid from "components/ProductsGrid";
 
 const Products = () => {
   const [pageSize] = useState<number>(4);
@@ -63,6 +72,44 @@ const Products = () => {
       <div className="grow">
         <ProductsGridTitle selectedItem={selectedCategory} items={filterd} />
 
+        <div className="hidden space-x-3 text-gray-800 w-100 lg:flex p-2">
+          <div className="flex grow items-center justify-between">
+            <div className="flex space-x-1">
+              <p className="button-sort flex items-center space-x-1">
+                <StoreIconOutline />
+                <span>In-Store</span>
+              </p>
+              <p className="button-sort flex items-center space-x-1">
+                <PriceIconOutline />
+                <span>Price</span>
+              </p>
+              <p className="button-sort flex items-center space-x-1">
+                <BrandIconOutline />
+                <span>Brand</span>
+              </p>
+              <p className="button-sort flex items-center space-x-1">
+                <SpeedIconOutline />
+                <span>Speed</span>
+              </p>
+              <p className="button-sort flex items-center space-x-1">
+                <MoreFiltersIconOutline />
+                <span>More filters</span>
+              </p>
+              <p className="flex items-center space-x-1 cursor-pointer text-sm underline">
+                Clear all
+              </p>
+            </div>
+            <div className="flex flex-row items-center justify-center space-x-2">
+              <div className="text-md font-bold">Sort by |</div>
+              <div>
+                <ListBox />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-b w-100 ml-3 mb-2"></div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
           {paginatedProducts.map((product: Product) => (
             <ProductItem
@@ -72,6 +119,8 @@ const Products = () => {
             />
           ))}
         </div>
+
+        {/* <ProductsGrid products={paginatedProducts} onLike={handleLike(product)}/> */}
 
         <Pagination
           itemsCount={filterd.length}

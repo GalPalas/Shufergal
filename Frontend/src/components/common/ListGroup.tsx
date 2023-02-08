@@ -8,7 +8,7 @@ type ListGroupProps = {
 
 const ListGroup = ({ items, selectedItem, onItemSelect }: ListGroupProps) => {
   return (
-    <ul className="list-group">
+    <ul className="hidden list-group lg:inline-block">
       {items.map((item) => (
         <li
           key={item._id}
