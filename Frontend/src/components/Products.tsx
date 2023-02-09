@@ -9,13 +9,13 @@ import ListGroup from "components/common/ListGroup";
 import ProductsGridTitle from "components/ProductsGridTitle";
 import {
   StoreIconOutline,
-  PriceIconOutline,
   BrandIconOutline,
   SpeedIconOutline,
   MoreFiltersIconOutline,
 } from "assets/icons";
 import ListBox from "./common/ListBox";
 import _ from "lodash";
+import FilterPrice from "./FilterPrice";
 // import ProductsGrid from "components/ProductsGrid";
 
 const Products = () => {
@@ -95,10 +95,9 @@ const Products = () => {
                 <StoreIconOutline />
                 <span>In-Store</span>
               </p>
-              <p className="button-sort flex items-center space-x-1">
-                <PriceIconOutline />
-                <span>Price</span>
-              </p>
+              <div>
+                <FilterPrice />
+              </div>
               <p className="button-sort flex items-center space-x-1">
                 <BrandIconOutline />
                 <span>Brand</span>
