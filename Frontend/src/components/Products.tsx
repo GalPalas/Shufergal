@@ -1,4 +1,4 @@
-import { Product, Category } from "types";
+import { Product, Category, SortType } from "types";
 import { paginate } from "utilities/paginate";
 import { useEffect, useState } from "react";
 import { getProducts } from "data/fakeProductService";
@@ -9,12 +9,13 @@ import ListGroup from "components/common/ListGroup";
 import ProductsGridTitle from "components/ProductsGridTitle";
 import {
   StoreIconOutline,
-  PriceIconOutline,
   BrandIconOutline,
   SpeedIconOutline,
   MoreFiltersIconOutline,
 } from "assets/icons";
 import ListBox from "./common/ListBox";
+import _ from "lodash";
+import FilterPrice from "./FilterPrice";
 // import ProductsGrid from "components/ProductsGrid";
 
 const Products = () => {
@@ -23,6 +24,11 @@ const Products = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedCategory, setSelectedCategory] = useState<Category>();
+  const [sortGrid, setSortGrid] = useState<SortType>({
+    name: "Best Match",
+    lable: "",
+    order: "asc",
+  });
 
   useEffect(() => {
     const categories: Category[] = [
@@ -51,6 +57,14 @@ const Products = () => {
     setCurrentPage(1);
   };
 
+  const handleSort = (sortType: SortType) => {
+    setSortGrid({
+      name: sortType.name,
+      lable: sortType.lable,
+      order: sortType.order,
+    });
+  };
+
   const filterd: Product[] =
     selectedCategory && selectedCategory._id
       ? products.filter(
@@ -58,7 +72,9 @@ const Products = () => {
         )
       : products;
 
-  const paginatedProducts = paginate(filterd, currentPage, pageSize);
+  const sorted: any = _.orderBy(filterd, [sortGrid.lable], [sortGrid.order]);
+
+  const paginatedProducts = paginate(sorted, currentPage, pageSize);
 
   return (
     <div className="flex">
@@ -79,10 +95,9 @@ const Products = () => {
                 <StoreIconOutline />
                 <span>In-Store</span>
               </p>
-              <p className="button-sort flex items-center space-x-1">
-                <PriceIconOutline />
-                <span>Price</span>
-              </p>
+              <div>
+                <FilterPrice />
+              </div>
               <p className="button-sort flex items-center space-x-1">
                 <BrandIconOutline />
                 <span>Brand</span>
@@ -102,7 +117,7 @@ const Products = () => {
             <div className="flex flex-row items-center justify-center space-x-2">
               <div className="text-md font-bold">Sort by |</div>
               <div>
-                <ListBox />
+                <ListBox onSort={handleSort} />
               </div>
             </div>
           </div>

@@ -1,3 +1,4 @@
+import { SortType } from "types";
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import {
@@ -6,22 +7,25 @@ import {
   CheckIconOutline,
 } from "assets/icons";
 
-type SortType = {
-  _id: string;
-  name: string;
+const sortByList: SortType[] = [
+  { _id: "1", name: "Best Match", lable: "", order: "asc" },
+  { _id: "2", name: "Best Seller", lable: "", order: "asc" },
+  { _id: "3", name: "Price Low", lable: "price", order: "asc" },
+  { _id: "4", name: "Price High", lable: "price", order: "desc" },
+];
+
+type ListBoxProps = {
+  onSort: (sortType: SortType) => void;
 };
 
-const sortByList: SortType[] = [
-  { _id: "1", name: "Best Match" },
-  { _id: "2", name: "Best Seller" },
-  { _id: "3", name: "Price Low" },
-  { _id: "4", name: "Price High" },
-];
-const ListBox = () => {
+const ListBox = ({ onSort }: ListBoxProps) => {
   const [clicked, setClicked] = useState(false);
   const [selected, setSelected] = useState(sortByList[0]);
 
-  const handleSelected = (event: SortType) => setSelected(event);
+  const handleSelected = (event: SortType) => {
+    setSelected(event);
+    onSort(event);
+  };
   const handleClick = (clicked: boolean) => setClicked(!clicked);
 
   return (
