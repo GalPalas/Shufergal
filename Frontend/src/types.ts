@@ -26,3 +26,10 @@ export type Category = {
   _id?: string;
   name: string;
 };
+
+export type SortType = {
+  _id?: string;
+  name: string;
+  lable?: string;
+  order?: any;
+};
