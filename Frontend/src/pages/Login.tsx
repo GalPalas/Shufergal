@@ -13,6 +13,7 @@ type Inputs = {
 };
 
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const {
@@ -32,13 +33,12 @@ const Login = () => {
     dispatch(addUser({ data }));
   };
 
-  const navigate = useNavigate();
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     try {
       const { data: token } = await login(email, password);
       localStorage.setItem("x-auth-token", JSON.stringify(token));
       fetchUser();
-      navigate("/");
+      navigate("/cart");
     } catch (ex: any) {
       if (ex.respone && ex.response.status === 400) {
       }
