@@ -74,14 +74,18 @@ export const counterSlice = createSlice({
   },
 });
 
+// Return all cart.
 export const cartState = (state: RootState) => state.entities.cart;
 
-// Returns the amount of items in the cart
-export const cartValue = (state: RootState) =>
-  state.entities.cart.cartItems.reduce(
-    (acc: number, item: Product) => acc + item.quantity!,
+// Return amount of items in the cart.
+export const selectCartItemsCount = (state: RootState) => {
+  const items: Product[] = state.entities.cart.cartItems;
+  return items.reduce(
+    (accumalatedQuantity: number, item: Product) =>
+      accumalatedQuantity + (item.quantity || 0),
     0
-  );
+  )!;
+};
 
 export const {
   addToCart,

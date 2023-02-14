@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { cartValue, resetCart } from "store/slices/cartSlice";
+import { selectCartItemsCount, resetCart } from "store/slices/cartSlice";
 import { selectUserName } from "store/slices/userSlice";
 import { Menu } from "@headlessui/react";
 import { userLogout } from "store/slices/userSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const count: number = useSelector(cartValue);
+  const itemsInCart = useSelector(selectCartItemsCount);
   const userName: string = useSelector(selectUserName)!;
 
   const logoutClickHandler = () => {
@@ -30,9 +30,9 @@ const Navbar = () => {
         <div>
           <Link to="/cart" className="flex items-center justify-center gap-2">
             Cart
-            {count > 0 && (
+            {itemsInCart > 0 && (
               <div className="flex-none flex items-center justify-center w-5 h-5 rounded-full text-white bg-red-700 font-bold text-sm">
-                {count}
+                {itemsInCart}
               </div>
             )}
           </Link>
