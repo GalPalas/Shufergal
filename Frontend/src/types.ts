@@ -33,3 +33,11 @@ export type SortType = {
   lable?: string;
   order?: any;
 };
+
+export type ShippingAddress = {
+  fullName: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+};

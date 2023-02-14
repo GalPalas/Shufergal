@@ -1,15 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "store/store";
-import { Product } from "types";
+import { Product, ShippingAddress } from "types";
 
 export interface CartState {
   cartItems: Product[];
+  shippingAddress: ShippingAddress;
 }
 
 const initialState: CartState = {
   cartItems: localStorage.getItem("cart")
     ? JSON.parse(localStorage.getItem("cart")!)
     : [],
+  shippingAddress: {
+    fullName: "",
+    address: "",
+    city: "",
+    postalCode: "",
+    country: "",
+  },
 };
 
 export const counterSlice = createSlice({
@@ -51,7 +59,17 @@ export const counterSlice = createSlice({
     },
     resetCart: (cart, action) => {
       cart.cartItems = [];
+      cart.shippingAddress = {
+        fullName: "",
+        address: "",
+        city: "",
+        postalCode: "",
+        country: "",
+      };
       localStorage.removeItem("cart");
+    },
+    saveShippingAddress: (cart, action) => {
+      cart.shippingAddress = action.payload;
     },
   },
 });
@@ -71,6 +89,7 @@ export const {
   incrementQuantity,
   decrementQuantity,
   resetCart,
+  saveShippingAddress,
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

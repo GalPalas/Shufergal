@@ -127,7 +127,7 @@ const Cart = () => {
               <button
                 type="button"
                 className="button w-full bg-red-700 text-white"
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/shipping")}
               >
                 Check Out
               </button>
