@@ -1,10 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "pages/Home";
-import Cart from "pages/Cart";
+import { Home, Cart, Login, Payment, Shipping } from "pages";
 import Navbar from "components/common/Navbar";
 import ProductDetails from "components/ProductDetails";
-import Login from "pages/Login";
 import ProtectedRoute from "components/common/ProtectedRoute";
+
 const App = () => {
   return (
     <>
@@ -17,6 +16,8 @@ const App = () => {
         {/** Protected Routes */}
         <Route path="/" element={<ProtectedRoute />}>
           <Route path="/cart" element={<Cart />} />
+          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/payment" element={<Payment />} />
         </Route>
       </Routes>
     </>
