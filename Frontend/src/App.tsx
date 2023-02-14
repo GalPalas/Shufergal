@@ -4,16 +4,20 @@ import Cart from "pages/Cart";
 import Navbar from "components/common/Navbar";
 import ProductDetails from "components/ProductDetails";
 import Login from "pages/Login";
-
+import ProtectedRoute from "components/common/ProtectedRoute";
 const App = () => {
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/cart" element={<Cart />} />
+        {/** Public Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/" element={<Home />} />
+        {/** Protected Routes */}
+        <Route path="/" element={<ProtectedRoute />}>
+          <Route path="/cart" element={<Cart />} />
+        </Route>
       </Routes>
     </>
   );
