@@ -5,6 +5,7 @@ import { Product, ShippingAddress } from "types";
 export interface CartState {
   cartItems: Product[];
   shippingAddress: ShippingAddress;
+  paymentMethod: string;
 }
 
 const initialState: CartState = {
@@ -18,6 +19,7 @@ const initialState: CartState = {
     postalCode: "",
     country: "",
   },
+  paymentMethod: "",
 };
 
 export const counterSlice = createSlice({
@@ -71,6 +73,9 @@ export const counterSlice = createSlice({
     saveShippingAddress: (cart, action) => {
       cart.shippingAddress = action.payload;
     },
+    savePaymentMethod: (cart, action) => {
+      cart.paymentMethod = action.payload;
+    },
   },
 });
 
@@ -94,6 +99,7 @@ export const {
   decrementQuantity,
   resetCart,
   saveShippingAddress,
+  savePaymentMethod,
 } = counterSlice.actions;
 
 export default counterSlice.reducer;
