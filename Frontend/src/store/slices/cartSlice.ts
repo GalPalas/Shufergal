@@ -22,7 +22,7 @@ const initialState: CartState = {
   paymentMethod: "",
 };
 
-export const counterSlice = createSlice({
+export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
@@ -100,6 +100,6 @@ export const {
   resetCart,
   saveShippingAddress,
   savePaymentMethod,
-} = counterSlice.actions;
+} = cartSlice.actions;
 
-export default counterSlice.reducer;
+export default cartSlice.reducer;

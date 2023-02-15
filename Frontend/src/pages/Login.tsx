@@ -30,7 +30,7 @@ const Login = () => {
 
     const { data } = await getCurrentUser(currentUser._id);
 
-    dispatch(addUser({ data }));
+    dispatch(addUser(data));
   };
 
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {

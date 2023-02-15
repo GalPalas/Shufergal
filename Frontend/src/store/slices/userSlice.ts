@@ -1,29 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "store/store";
+import { User } from "types";
 
 export interface UserState {
-  currentUser: {
-    data: {
-      _id: string;
-      name: string;
-      email: string;
-      isAdmin: boolean;
-      createdAt: string;
-      updatedAt: string;
-    };
-  };
+  currentUser: User;
 }
 
 const initialState = {
   currentUser: {
-    data: {
-      _id: null,
-      name: null,
-      email: null,
-      isAdmin: null,
-      createdAt: null,
-      updatedAt: null,
-    },
+    _id: null,
+    name: null,
+    email: null,
+    isAdmin: null,
+    createdAt: null,
+    updatedAt: null,
   },
 };
 
@@ -35,7 +25,7 @@ export const userSlice = createSlice({
       user.currentUser = action.payload;
     },
     userLogout: (user, action) => {
-      user.currentUser.data.name = null;
+      user.currentUser.name = null;
       localStorage.removeItem("x-auth-token");
     },
   },
@@ -43,7 +33,7 @@ export const userSlice = createSlice({
 
 // This selector return the name of the current user.
 export const selectUserName = (state: RootState) =>
-  state.entities.user.currentUser.data.name;
+  state.entities.user.currentUser.name;
 
 export const { addUser, userLogout } = userSlice.actions;
 
