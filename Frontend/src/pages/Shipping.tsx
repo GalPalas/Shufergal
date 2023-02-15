@@ -41,13 +41,7 @@ const Shipping = () => {
     dispatch(
       saveShippingAddress({ fullName, address, city, postalCode, country })
     );
-    localStorage.setItem(
-      "cart",
-      JSON.stringify({
-        ...cart.cartItems,
-        shippingAddress: { fullName, address, city, postalCode, country },
-      })
-    );
+
     navigate("/payment");
   };
 

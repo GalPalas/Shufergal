@@ -5,6 +5,7 @@ import { Product, ShippingAddress } from "types";
 export interface CartState {
   cartItems: Product[];
   shippingAddress: ShippingAddress;
+  paymentMethod: string;
 }
 
 const initialState: CartState = {
@@ -18,9 +19,10 @@ const initialState: CartState = {
     postalCode: "",
     country: "",
   },
+  paymentMethod: "",
 };
 
-export const counterSlice = createSlice({
+export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
@@ -71,17 +73,24 @@ export const counterSlice = createSlice({
     saveShippingAddress: (cart, action) => {
       cart.shippingAddress = action.payload;
     },
+    savePaymentMethod: (cart, action) => {
+      cart.paymentMethod = action.payload;
+    },
   },
 });
 
+// Return all cart.
 export const cartState = (state: RootState) => state.entities.cart;
 
-// Returns the amount of items in the cart
-export const cartValue = (state: RootState) =>
-  state.entities.cart.cartItems.reduce(
-    (acc: number, item: Product) => acc + item.quantity!,
+// Return amount of items in the cart.
+export const selectCartItemsCount = (state: RootState) => {
+  const items: Product[] = state.entities.cart.cartItems;
+  return items.reduce(
+    (accumalatedQuantity: number, item: Product) =>
+      accumalatedQuantity + (item.quantity || 0),
     0
-  );
+  )!;
+};
 
 export const {
   addToCart,
@@ -90,6 +99,7 @@ export const {
   decrementQuantity,
   resetCart,
   saveShippingAddress,
-} = counterSlice.actions;
+  savePaymentMethod,
+} = cartSlice.actions;
 
-export default counterSlice.reducer;
+export default cartSlice.reducer;
