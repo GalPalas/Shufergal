@@ -1,8 +1,8 @@
 import { Product, Category, SortType } from "types";
 import { paginate } from "utilities/paginate";
 import { useEffect, useState } from "react";
-import { getProducts } from "data/fakeProductService";
-import { getCategories } from "data/fakeCategoryService";
+import { getProducts } from "services/productService";
+import { getCategories } from "services/categoryService";
 import ProductItem from "components/ProductItem";
 import Pagination from "components/common/Pagination";
 import ListGroup from "components/common/ListGroup";
@@ -31,13 +31,18 @@ const Products = () => {
   });
 
   useEffect(() => {
-    const categories: Category[] = [
-      { _id: "", name: "All Categories" },
-      ...getCategories(),
-    ];
-    setProducts(getProducts());
-    setCategories(categories);
-    setSelectedCategory({ name: "All Categories" });
+    const fetchData = async () => {
+      const { data } = await getCategories();
+      const { data: products } = await getProducts();
+      const categories: Category[] = [
+        { _id: "", name: "All Categories" },
+        ...data,
+      ];
+      setProducts(products);
+      setCategories(categories);
+      setSelectedCategory({ name: "All Categories" });
+    };
+    fetchData();
   }, []);
 
   const handleLike = (product: Product) => {

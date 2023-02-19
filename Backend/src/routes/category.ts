@@ -1,11 +1,11 @@
 import express, { Request, Response, NextFunction } from "express";
-import { Product } from "../models/product";
+import { Category } from "../models/category";
 
 const router = express.Router();
 
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
-  const products = await Product.find().select("-__v");
-  res.send(products);
+  const categories = await Category.find().select("-__v");
+  res.send(categories);
 });
 
 export default router;
