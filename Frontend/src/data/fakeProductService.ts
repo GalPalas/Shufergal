@@ -7,7 +7,7 @@ export const products: Product[] = [
     price: 1.7,
     image:
       "https://i5.walmartimages.com/asr/4b15d1c6-03e7-489b-96cb-7d4b1edeb927.042464e5bc52fa0421f255d04ec525a4.jpeg",
-    category: { _id: "5b21ca3eeb7f6fbccd471818", name: "Organic Fruit" },
+    category: { _id: "63ecb57558a07ebd5d227aff", name: "Organic Fruit" },
     description: "Marketside Organic Bananas, Bunch, 2 lb",
     numberInStock: 15,
     liked: true,
