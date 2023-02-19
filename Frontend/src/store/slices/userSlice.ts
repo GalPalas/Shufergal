@@ -7,14 +7,16 @@ export interface UserState {
 }
 
 const initialState = {
-  currentUser: {
-    _id: null,
-    name: null,
-    email: null,
-    isAdmin: null,
-    createdAt: null,
-    updatedAt: null,
-  },
+  currentUser: localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")!)
+    : {
+        _id: null,
+        name: null,
+        email: null,
+        isAdmin: null,
+        createdAt: null,
+        updatedAt: null,
+      },
 };
 
 export const userSlice = createSlice({
@@ -23,10 +25,12 @@ export const userSlice = createSlice({
   reducers: {
     addUser: (user, action) => {
       user.currentUser = action.payload;
+      localStorage.setItem("user", JSON.stringify(user.currentUser));
     },
     userLogout: (user, action) => {
       user.currentUser.name = null;
       localStorage.removeItem("x-auth-token");
+      localStorage.removeItem("user");
     },
   },
 });
