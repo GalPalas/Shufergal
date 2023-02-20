@@ -1,7 +1,9 @@
 import Home from "pages/Home";
 import Cart from "pages/Cart";
+import Order from "pages/Order";
 import Login from "pages/Login";
 import Payment from "pages/Payment";
 import Shipping from "pages/Shipping";
+import Placeorder from "pages/Placeorder";
 
-export { Home, Cart, Login, Payment, Shipping };
+export { Home, Cart, Login, Payment, Shipping, Placeorder, Order };
