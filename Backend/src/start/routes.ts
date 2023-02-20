@@ -5,6 +5,7 @@ import auth from "../routes/auth";
 import products from "../routes/product";
 import seed from "../routes/seed";
 import categories from "../routes/category";
+import orders from "../routes/order";
 
 dotenv.config();
 const startup = (app: Application) => {
@@ -13,6 +14,7 @@ const startup = (app: Application) => {
   app.use("/api/auth", auth);
   app.use("/api/categories", categories);
   app.use("/api/products", products);
+  app.use("/api/orders", orders);
   app.use("/api/seed", seed);
 };
 

@@ -35,6 +35,8 @@ export const userSlice = createSlice({
   },
 });
 
+export const userState = (state: RootState) => state.entities.user;
+
 // This selector return the name of the current user.
 export const selectUserName = (state: RootState) =>
   state.entities.user.currentUser.name;

@@ -76,6 +76,10 @@ export const cartSlice = createSlice({
     savePaymentMethod: (cart, action) => {
       cart.paymentMethod = action.payload;
     },
+    cartClearItems: (cart, action) => {
+      cart.cartItems = [];
+      localStorage.removeItem("cart");
+    },
   },
 });
 
@@ -98,6 +102,7 @@ export const {
   incrementQuantity,
   decrementQuantity,
   resetCart,
+  cartClearItems,
   saveShippingAddress,
   savePaymentMethod,
 } = cartSlice.actions;

@@ -39,6 +39,7 @@ const Payment = () => {
       return;
     }
     dispatch(savePaymentMethod(selectedPaymentMethod));
+    navigate("/placeorder");
   };
 
   useEffect(() => {
