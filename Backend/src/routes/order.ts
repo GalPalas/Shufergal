@@ -4,6 +4,11 @@ import { Order } from "../models/order";
 
 const router = express.Router();
 
+router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
+  const order = await Order.findById(req.params.id);
+  res.send(order);
+});
+
 //Todo : add authentication to this route and use Fawn for transaction.
 router.post("/", async (req: Request, res: Response, next: NextFunction) => {
   const user = await User.findById(req.body.userId);
