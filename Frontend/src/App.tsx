@@ -1,5 +1,14 @@
 import { Routes, Route } from "react-router-dom";
-import { Home, Cart, Login, Payment, Shipping, Placeorder, Order } from "pages";
+import {
+  Home,
+  Cart,
+  Login,
+  Payment,
+  Shipping,
+  Placeorder,
+  Order,
+  Register,
+} from "pages";
 import Navbar from "components/common/Navbar";
 import ProductDetails from "components/ProductDetails";
 import ProtectedRoute from "components/common/ProtectedRoute";
@@ -11,6 +20,7 @@ const App = () => {
       <Routes>
         {/** Public Routes */}
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/" element={<Home />} />
         {/** Protected Routes */}
