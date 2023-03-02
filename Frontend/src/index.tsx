@@ -7,14 +7,21 @@ import { store } from "store/store";
 import App from "App";
 import "index.css";
 import "react-toastify/dist/ReactToastify.css";
-
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <PayPalScriptProvider
+        options={{
+          "client-id":
+            "AQJIbAt4hX96Y013JuyqlEp6FzssilC1--d6n8wdAJIbctnTSdTk5hER5NCzwDODQMiMugUM2AWylFlz",
+        }}
+      >
+        <App />
+      </PayPalScriptProvider>
       <ToastContainer />
     </BrowserRouter>
   </Provider>

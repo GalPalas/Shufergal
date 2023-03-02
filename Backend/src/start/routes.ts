@@ -6,6 +6,7 @@ import products from "../routes/product";
 import seed from "../routes/seed";
 import categories from "../routes/category";
 import orders from "../routes/order";
+import paypal from "../routes/paypal";
 
 dotenv.config();
 const startup = (app: Application) => {
@@ -15,6 +16,7 @@ const startup = (app: Application) => {
   app.use("/api/categories", categories);
   app.use("/api/products", products);
   app.use("/api/orders", orders);
+  app.use("/api/keys/paypal", paypal);
   app.use("/api/seed", seed);
 };
 
