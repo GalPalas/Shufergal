@@ -1,5 +1,7 @@
 # Sufergal - Discover New and Exciting Food Products with Ease.
 
+![image](https://github.com/GalPalas/shufergal/assets/59319269/011e42b4-7c8c-4f34-a804-9dd4597b6ed3)
+
 ## Introduction
 Welcome to Sufergal, the ultimate web application developed by a well-known retail chain, designed to help you discover a world of new and intriguing food products,With Sufergal, you can search for products by category, name, price, sort by price and more.
 
